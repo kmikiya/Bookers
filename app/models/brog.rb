@@ -1,0 +1,2 @@
+class Brog < ApplicationRecord
+end
