@@ -3,35 +3,45 @@
 <table>
     <thead>
       <tr>
-        <th>title</th>
-        <th>body</th>
+        <th>Title</th>
+        <th>Body</th>
         <th colspan="3"></th>
       </tr>
     </thead>
     <tbody>
        <% @books.each do |book| %>
       <tr>
-        <td><%= book.title %></td> <!--blogモデル内のtitleカラムという意味？-->
+        <td><%= book.title %></td> <!--blogモデル内のtitleカラムという意味-->
         <td><%= book.body %></td>
-        <td>Show</td>
-        <td>Edit</td>
-        <td>Destroy</td>
+        <td>
+          <%= link_to "Show", book_path(book.id) %> <!--each文でローカル変数をbookとしたからそのbookのidを教えてあげる必要がある。-->
+        </td>
+        <td>
+          <%= link_to "Edit", edit_book_path(book.id) %>
+        </td>
+        <td>
+          <%= link_to "Destroy", book_path(book.id), method: :delete, "data-confirm" => "Are you sure?" %>
+        </td>
       </tr>
     </tbody>
 
 <% end %>
 
 <h2>New book</h2>
+<form>
 <%= form_with model:@book, local:true do |f| %>
-<div>
-  <label>title</label>
-  <%= f.text_field :title %>
-</div>
-<div>
-  <label>body</label>
+  <div class="field">
+    <label >title</label>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <label>body</label>
   <%= f.text_area :body %>
-</div>
-
+  </div>
+  <div class="action">
   <%= f.submit 'Create Book' %>
+  </div>
+
+</form>
 
 <% end %>
